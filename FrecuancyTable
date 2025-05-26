@@ -1,0 +1,114 @@
+public class FrequencyTable {
+    public static void main(String[] args) {
+        // Datos individuales (sin arreglos)
+        double d1 = 25, d2 = 30, d3 = 27, d4 = 40, d5 = 34, d6 = 38, d7 = 45, d8 = 49, d9 = 50, d10 = 55,
+                d11 = 52, d12 = 53, d13 = 60, d14 = 61, d15 = 62, d16 = 65, d17 = 70, d18 = 72, d19 = 73, d20 = 75,
+                d21 = 30, d22 = 35, d23 = 37, d24 = 41, d25 = 47, d26 = 58, d27 = 63, d28 = 68, d29 = 74, d30 = 78;
+
+        // Número de datos
+        int n = 30;
+
+        // Encontrar mínimo y máximo manualmente
+        double min = d1, max = d1;
+        if (d2 < min) min = d2; if (d2 > max) max = d2;
+        if (d3 < min) min = d3; if (d3 > max) max = d3;
+        if (d4 < min) min = d4; if (d4 > max) max = d4;
+        if (d5 < min) min = d5; if (d5 > max) max = d5;
+        if (d6 < min) min = d6; if (d6 > max) max = d6;
+        if (d7 < min) min = d7; if (d7 > max) max = d7;
+        if (d8 < min) min = d8; if (d8 > max) max = d8;
+        if (d9 < min) min = d9; if (d9 > max) max = d9;
+        if (d10 < min) min = d10; if (d10 > max) max = d10;
+        if (d11 < min) min = d11; if (d11 > max) max = d11;
+        if (d12 < min) min = d12; if (d12 > max) max = d12;
+        if (d13 < min) min = d13; if (d13 > max) max = d13;
+        if (d14 < min) min = d14; if (d14 > max) max = d14;
+        if (d15 < min) min = d15; if (d15 > max) max = d15;
+        if (d16 < min) min = d16; if (d16 > max) max = d16;
+        if (d17 < min) min = d17; if (d17 > max) max = d17;
+        if (d18 < min) min = d18; if (d18 > max) max = d18;
+        if (d19 < min) min = d19; if (d19 > max) max = d19;
+        if (d20 < min) min = d20; if (d20 > max) max = d20;
+        if (d21 < min) min = d21; if (d21 > max) max = d21;
+        if (d22 < min) min = d22; if (d22 > max) max = d22;
+        if (d23 < min) min = d23; if (d23 > max) max = d23;
+        if (d24 < min) min = d24; if (d24 > max) max = d24;
+        if (d25 < min) min = d25; if (d25 > max) max = d25;
+        if (d26 < min) min = d26; if (d26 > max) max = d26;
+        if (d27 < min) min = d27; if (d27 > max) max = d27;
+        if (d28 < min) min = d28; if (d28 > max) max = d28;
+        if (d29 < min) min = d29; if (d29 > max) max = d29;
+        if (d30 < min) min = d30; if (d30 > max) max = d30;
+
+        // Cálculo de parámetros
+        int k = (int) (1 + 3.322 * Math.log10(n)); // Número de clases
+        double rango = max - min;
+        double amplitud = Math.ceil(rango / k);
+        double limiteInferior = min;
+        double frecuenciaAcumulada = 0;
+        double sumaPuntoMedioFrecuencia = 0, totalFrecuencia = 0;
+        int modaFrecuencia = 0;
+        double modaLimiteInferior = 0, mediana = 0;
+
+        System.out.println("Clase\tLímite Inf\tLímite Sup\tFrecuencia\tPunto Medio\tFA\tFRA\t%");
+
+        for (int i = 0; i < k; i++) {
+            double limiteSuperior = limiteInferior + amplitud;
+            int frecuencia = 0;
+
+            // Contar frecuencia manualmente (sin arreglos)
+            if (d1 >= limiteInferior && d1 < limiteSuperior) frecuencia++;
+            if (d2 >= limiteInferior && d2 < limiteSuperior) frecuencia++;
+            if (d3 >= limiteInferior && d3 < limiteSuperior) frecuencia++;
+            if (d4 >= limiteInferior && d4 < limiteSuperior) frecuencia++;
+            if (d5 >= limiteInferior && d5 < limiteSuperior) frecuencia++;
+            if (d6 >= limiteInferior && d6 < limiteSuperior) frecuencia++;
+            if (d7 >= limiteInferior && d7 < limiteSuperior) frecuencia++;
+            if (d8 >= limiteInferior && d8 < limiteSuperior) frecuencia++;
+            if (d9 >= limiteInferior && d9 < limiteSuperior) frecuencia++;
+            if (d10 >= limiteInferior && d10 < limiteSuperior) frecuencia++;
+            if (d11 >= limiteInferior && d11 < limiteSuperior) frecuencia++;
+            if (d12 >= limiteInferior && d12 < limiteSuperior) frecuencia++;
+            if (d13 >= limiteInferior && d13 < limiteSuperior) frecuencia++;
+            if (d14 >= limiteInferior && d14 < limiteSuperior) frecuencia++;
+            if (d15 >= limiteInferior && d15 < limiteSuperior) frecuencia++;
+            if (d16 >= limiteInferior && d16 < limiteSuperior) frecuencia++;
+            if (d17 >= limiteInferior && d17 < limiteSuperior) frecuencia++;
+            if (d18 >= limiteInferior && d18 < limiteSuperior) frecuencia++;
+            if (d19 >= limiteInferior && d19 < limiteSuperior) frecuencia++;
+            if (d20 >= limiteInferior && d20 < limiteSuperior) frecuencia++;
+
+            frecuenciaAcumulada += frecuencia;
+            double puntoMedio = (limiteInferior + limiteSuperior) / 2;
+            double fra = frecuenciaAcumulada / (double) n;
+            double porcentaje = fra * 100;
+
+            sumaPuntoMedioFrecuencia += puntoMedio * frecuencia;
+            totalFrecuencia += frecuencia;
+
+            if (frecuencia > modaFrecuencia) {
+                modaFrecuencia = frecuencia;
+                modaLimiteInferior = limiteInferior;
+            }
+
+            if (mediana == 0 && frecuenciaAcumulada >= n / 2.0) {
+                double faAnterior = frecuenciaAcumulada - frecuencia;
+                mediana = limiteInferior + ((n / 2.0 - faAnterior) / frecuencia) * amplitud;
+            }
+
+            System.out.printf("%.0f - %.0f\t%.0f\t%.0f\t\t%d\t\t%.1f\t\t%.0f\t%.2f\t%.2f%%\n",
+                    limiteInferior, limiteSuperior, limiteInferior, limiteSuperior, frecuencia, puntoMedio, frecuenciaAcumulada, fra, porcentaje);
+
+            limiteInferior = limiteSuperior;
+        }
+
+        // Cálculo de medidas de tendencia central
+        double media = sumaPuntoMedioFrecuencia / totalFrecuencia;
+        double moda = modaLimiteInferior;
+
+        System.out.println("\nMedidas de Tendencia Central:");
+        System.out.printf("Media: %.2f\n", media);
+        System.out.printf("Moda: %.2f\n", moda);
+        System.out.printf("Mediana: %.2f\n", mediana);
+    }
+}
