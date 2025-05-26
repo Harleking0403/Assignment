@@ -1,0 +1,66 @@
+public class ExtendedFrequencyTable5 {
+    public static void main(String[] args) {
+        double[] dataSet = {25, 30, 27, 40, 34, 38, 45, 49, 50, 55, 52, 53, 60, 61, 62, 65, 70, 72, 73, 75,
+                30, 35, 37, 41, 47, 58, 63, 68, 74, 78};
+
+
+        int n = dataSet.length;
+        double min = dataSet[0], max = dataSet[0];
+
+        for (int i = 1; i < n; i++) {
+            if (dataSet[i] < min) min = dataSet[i];
+            if (dataSet[i] > max) max = dataSet[i];
+        }
+
+        int k = (int) Math.ceil(1 + 3.322 * Math.log10(n));
+        double rango = max - min;
+        double amplitud = Math.ceil(rango / k);
+
+        double limiteInferior = min, frecuenciaAcumulada = 0;
+        double sumaPuntoMedioFrecuencia = 0, totalFrecuencia = 0;
+        int modaFrecuencia = 0;
+        double modaLimiteInferior = 0, mediana = 0;
+
+        System.out.println("Clase\tLímite Inf\tLímite Sup\tFrecuencia\tPunto Medio\tFA\tFRA\t%");
+        for (int i = 0; i < k; i++) {
+            double limiteSuperior = limiteInferior + amplitud;
+            int frecuencia = 0;
+
+            for (int j = 0; j < n; j++)
+                if (dataSet[j] >= limiteInferior && dataSet[j] < limiteSuperior) frecuencia++;
+
+            frecuenciaAcumulada += frecuencia;
+            double puntoMedio = (limiteInferior + limiteSuperior) / 2;
+            double fra = frecuenciaAcumulada / (double) n;
+            double porcentaje = fra * 100;
+
+            sumaPuntoMedioFrecuencia += puntoMedio * frecuencia;
+            totalFrecuencia += frecuencia;
+            if (frecuencia > modaFrecuencia) {
+                modaFrecuencia = frecuencia;
+                modaLimiteInferior = limiteInferior;
+            }
+
+
+            if (mediana == 0 && frecuenciaAcumulada >= n / 2.0) {
+                double faAnterior = frecuenciaAcumulada - frecuencia;
+                mediana = limiteInferior + ((n / 2.0 - faAnterior) / frecuencia) * amplitud;
+            }
+
+            System.out.printf("%.0f - %.0f\t%.0f\t%.0f\t\t%d\t\t%.1f\t\t%.0f\t%.2f\t%.2f%%\n",
+                    limiteInferior, limiteSuperior, limiteInferior, limiteSuperior, frecuencia, puntoMedio, frecuenciaAcumulada, fra, porcentaje);
+
+            limiteInferior = limiteSuperior;
+        }
+
+        
+        double media = sumaPuntoMedioFrecuencia / totalFrecuencia;
+
+        double moda = modaLimiteInferior;
+
+        System.out.println("\nMedidas de Tendencia Central:");
+        System.out.printf("Media: %.2f\n", media);
+        System.out.printf("Moda: %.2f\n", moda);
+        System.out.printf("Mediana: %.2f\n", mediana);
+    }
+}
