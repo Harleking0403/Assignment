@@ -1,0 +1,33 @@
+  class simpleLinealProgress {
+    public static void main(String[] args) {
+        // Datos fijos X e Y
+        double x1 = 1, x2 = 2, x3 = 3, x4 = 4, x5 = 5;
+        double y1 = 2, y2 = 4, y3 = 6, y4 = 8, y5 = 10;
+
+        // Sumas necesarias
+        double sumX = x1 + x2 + x3 + x4 + x5;
+        double sumY = y1 + y2 + y3 + y4 + y5;
+        double sumXY = (x1 * y1) + (x2 * y2) + (x3 * y3) + (x4 * y4) + (x5 * y5);
+        double sumXX = (x1 * x1) + (x2 * x2) + (x3 * x3) + (x4 * x4) + (x5 * x5);
+        double sum2x = sumX * sumX; // (ΣX)²
+
+        int n = 5; // Cantidad de datos
+
+        // Cálculo de coeficientes de regresión
+        double b0 = (sumXX * sumY - sumX * sumXY) / (n * sumXX - sum2x);
+        double b1 = (n * sumXY - sumX * sumY) / (n * sumXX - sum2x);
+
+        double X = 2.9; // Punto para evaluar la ecuación de regresión
+        double Ecuacion = b0 + b1 * X;
+
+        // Impresión de resultados
+        System.out.println("sumaX = " + sumX);
+        System.out.println("SumaY = " + sumY);
+        System.out.println("sumaXY = " + sumXY);
+        System.out.println("suma de X² = " + sumXX);
+        System.out.println("suma de [X]² = " + sum2x);
+        System.out.println("b0 = " + b0);
+        System.out.println("b1 = " + b1);
+        System.out.println("\nEl resultado de la ecuación de Regresión Lineal es: " + Ecuacion);
+    }
+}
